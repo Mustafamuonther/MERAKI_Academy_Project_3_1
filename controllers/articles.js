@@ -2,21 +2,22 @@
 const articleController= require("../models/articleSchema")
 
 const getAllArticles = (req, res) => {
-  const {title,description ,auther  } =req .body 
+  const {title,description ,author  } =req .body 
 
 
-const newArticle =new articleontroller({title,description ,
-  auther
+const newArticle =new articleController({title,description ,
+  author
   })
 
 
-  newUser
+  newArticle
   .save().then (result =>{
 
       res.status(201).json({
           success:true,
           message: "Article created",
           article :"the new article you created",
+          result:result
       })
 
   }).catch(err=>{

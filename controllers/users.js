@@ -33,7 +33,24 @@ const register = (req, res) => {
         });
 };
 
-module.exports = { register };
+
+const loginUser = async (req, res) => {
+    try {
+      const { email, password } = req.body;
+  console.log( { email, password } )
+      const user = await usreModel.findOne({ email, password });
+      if (user) {
+        res.status(200).json({ success: true, message: 'Valid login credentials' });
+      } else {
+        res.status(401).json({ success: false, message: 'Invalid login credentials' });
+      }
+    } catch (error) {
+      res.status(500).json({ success: false, message: 'Error during login' });
+    }
+  };
+
+
+module.exports = { register ,loginUser};
 
 
 
