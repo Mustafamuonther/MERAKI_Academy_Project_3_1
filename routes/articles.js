@@ -6,5 +6,7 @@ const articlesRouter = express.Router();
 
 // endpoint for the GET request
 articlesRouter.get("/", getAllArticles);
-articlesRouter.post("/articles")
+articlesRouter.post("/articles",getAllArticles)
+
+
 module.exports = articlesRouter;

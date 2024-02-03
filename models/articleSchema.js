@@ -5,7 +5,7 @@ const article = new mongoose.Schema({
 
     title:{type:String,required:true},
     description:{type:String,required:true},
-    author:{type:mongoose.Schema.Types.ObjectId,ref:"User"},
+    author:{type:String},
     comments:[{type:mongoose.Schema.Types.ObjectId,ref:"Comment"}],
 
 });

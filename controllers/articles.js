@@ -2,7 +2,7 @@
 const articleController= require("../models/articleSchema")
 
 const getAllArticles = (req, res) => {
-  const {title,description ,author  } =req .body 
+  const {title,description ,author  } =req.body 
 
 
 const newArticle =new articleController({title,description ,
