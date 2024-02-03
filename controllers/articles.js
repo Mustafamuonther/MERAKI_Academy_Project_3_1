@@ -1,7 +1,8 @@
 // 1. this function return all articles
 const articleController= require("../models/articleSchema")
 
-const getAllArticles = (req, res) => {const {title,description ,auther  } =req .body 
+const getAllArticles = (req, res) => {
+  const {title,description ,auther  } =req .body 
 
 
 const newArticle =new articleontroller({title,description ,
