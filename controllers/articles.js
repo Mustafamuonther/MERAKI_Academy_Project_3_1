@@ -1,5 +1,6 @@
 // 1. this function return all articles
 const articleController = require("../models/articleSchema");
+const comment = require("../models/commentSchema");
 
 const getAllArticles = async (req, res) => {
   try {
@@ -70,8 +71,38 @@ const getArticlesByAuthor = async (req, res) => {
   }
 };
 
+const getArticleById = async (req, res) => {
+  const articleId = req.params.id;
+
+  try {
+    const article = await articleController.findById(articleId).populate('author').populate({ path: "comments" });
+
+    if (article) {
+      res.status(200).json({
+        success: true,
+        message: `The article ${articleId}`,
+        article,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: `Article not found with id: ${articleId}`,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Server Error',
+      err: error.message,
+    });
+  }
+};
+
 module.exports = {
   getAllArticles,
   createNewArticle,
-  getArticlesByAuthor
+  getArticlesByAuthor,
+  getArticleById,
+
 };
