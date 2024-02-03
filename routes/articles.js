@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllArticles ,createNewArticle} = require("../controllers/articles");
+const { getAllArticles ,createNewArticle,getArticlesByAuthor} = require("../controllers/articles");
 
 // create articles router
 const articlesRouter = express.Router();
@@ -8,5 +8,6 @@ const articlesRouter = express.Router();
 articlesRouter.get("/", getAllArticles);
 articlesRouter.post("/articles",createNewArticle)
 
+articlesRouter.get("/search_1",getArticlesByAuthor );
 
 module.exports = articlesRouter;
