@@ -1,36 +1,48 @@
 // 1. this function return all articles
 const articleController= require("../models/articleSchema")
 
-const getAllArticles = (req, res) => {
-  const {title,description ,author  } =req.body 
+const getAllArticles = async (req, res) => {
+  try {
+    const articles = await articleController.find();
+    res.status(200).json({
+      success: true,
+      message: 'All the articles',
+      articles,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Server Error',
+      err: error.message,
+    });
+  }
+};
 
+const createNewArticle = async (req, res) => {
+  const { title, description, author } = req.body;
 
-const newArticle =new articleController({title,description ,
-  author
-  })
+  try {
+    const newArticle = new articleController({ title, description, author });
 
+    const result = await newArticle.save();
 
-  newArticle
-  .save().then (result =>{
-
-      res.status(201).json({
-          success:true,
-          message: "Article created",
-          article :"the new article you created",
-          result:result
-      })
-
-  }).catch(err=>{
-      console.log(err);
-      res.status(500).json({
-          success: false,
-          message: "Server Error",
-          err: "error message",
-      });
-  });};
-
-
+    res.status(201).json({
+      success: true,
+      message: 'Article created',
+      article: result,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: 'Server Error',
+      err: err.message,
+    });
+  }
+};
 
 module.exports = {
-  getAllArticles, 
+  getAllArticles,
+  createNewArticle,
 };
